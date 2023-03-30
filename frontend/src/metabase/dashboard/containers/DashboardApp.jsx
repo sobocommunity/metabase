@@ -113,6 +113,8 @@ const mapDispatchToProps = {
 const DashboardApp = props => {
   const { isRunning, isLoadingComplete, dashboard } = props;
 
+  console.log({ isRunning, isLoadingComplete });
+
   const options = parseHashOptions(window.location.hash);
   const editingOnLoad = options.edit;
   const addCardOnLoad = options.add && parseInt(options.add);
@@ -220,6 +222,7 @@ const DashboardApp = props => {
       <Toaster
         message={t`Would you like to be notified when this dashboard is done loading?`}
         isShown={isShowingToaster}
+        // isShown
         onDismiss={onDismissToast}
         onConfirm={onConfirmToast}
         fixed
