@@ -88,6 +88,7 @@
                       :description
                       :visibility_type
                       :semantic_type
+                      :json_unfolding
                       :fk_target_field_id
                       :nfc_path]))
 
@@ -107,6 +108,7 @@
                     :description        nil
                     :semantic_type      nil
                     :visibility_type    :normal
+                    :json_unfolding     false
                     :fk_target_field_id nil
                     :nfc_path           nil}
                    original-val)))
@@ -115,6 +117,7 @@
                                                                                   :display_name    "yay"
                                                                                   :description     "foobar"
                                                                                   :semantic_type   :type/Name
+                                                                                  :json_unfolding  true
                                                                                   :visibility_type :sensitive
                                                                                   :nfc_path        ["bob" "dobbs"]})
           (let [updated-val (simple-field-details (t2/select-one Field :id field-id))]
@@ -124,6 +127,7 @@
                       :description        "foobar"
                       :semantic_type      :type/Name
                       :visibility_type    :sensitive
+                      :json_unfolding     true
                       :fk_target_field_id nil
                       :nfc_path           ["bob" "dobbs"]}
                      updated-val)))
@@ -137,6 +141,7 @@
                       :description        nil
                       :semantic_type      nil
                       :visibility_type    :sensitive
+                      :json_unfolding     true
                       :fk_target_field_id nil
                       :nfc_path           nil}
                      (simple-field-details (t2/select-one Field :id field-id)))))))))
@@ -512,6 +517,7 @@
                 :visibility_type    :normal
                 :semantic_type      :type/FK
                 :fk_target_field_id true
+                :json_unfolding     false
                 :nfc_path           nil}
                (mt/boolean-ids-and-timestamps (simple-field-details (t2/select-one Field :id field-id-2))))))
       (mt/user-http-request :crowberto :put 200 (format "field/%d" field-id-2) {:semantic_type nil})
@@ -522,6 +528,7 @@
                 :visibility_type    :normal
                 :semantic_type      nil
                 :fk_target_field_id false
+                :json_unfolding     false
                 :nfc_path           nil}
                (mt/boolean-ids-and-timestamps (simple-field-details (t2/select-one Field :id field-id-2)))))))))
 
@@ -540,6 +547,7 @@
                   :visibility_type    :normal
                   :semantic_type      :type/FK
                   :fk_target_field_id true
+                  :json_unfolding     false
                   :nfc_path           nil}
                  (mt/boolean-ids-and-timestamps before-change))))
         (mt/user-http-request :crowberto :put 200 (format "field/%d" field-id-3) {:fk_target_field_id field-id-2})
@@ -551,6 +559,7 @@
                     :visibility_type    :normal
                     :semantic_type      :type/FK
                     :fk_target_field_id true
+                    :json_unfolding     false
                     :nfc_path           nil}
                    (mt/boolean-ids-and-timestamps after-change)))
             (is (not= (:fk_target_field_id before-change)
@@ -568,6 +577,7 @@
                 :visibility_type    :normal
                 :semantic_type      nil
                 :fk_target_field_id false
+                :json_unfolding     false
                 :nfc_path           nil}
                (mt/boolean-ids-and-timestamps (simple-field-details (t2/select-one Field :id field-id-2))))))
       (mt/user-http-request :crowberto :put 200 (format "field/%d" field-id-2) {:semantic_type      :type/FK
@@ -579,6 +589,7 @@
                 :visibility_type    :normal
                 :semantic_type      :type/FK
                 :fk_target_field_id true
+                :json_unfolding     false
                 :nfc_path           nil}
                (mt/boolean-ids-and-timestamps (simple-field-details (t2/select-one Field :id field-id-2)))))))))
 
@@ -596,6 +607,7 @@
                   :visibility_type    :normal
                   :semantic_type      :type/FK
                   :fk_target_field_id true
+                  :json_unfolding     false
                   :nfc_path           nil}
                  (mt/boolean-ids-and-timestamps (simple-field-details (t2/select-one Field :id field-id-2))))))
         (mt/user-http-request :crowberto :put 200 (format "field/%d" field-id-2) {:description "foo"})
@@ -606,6 +618,7 @@
                   :visibility_type    :normal
                   :semantic_type      :type/FK
                   :fk_target_field_id true
+                  :json_unfolding     false
                   :nfc_path           nil}
                  (mt/boolean-ids-and-timestamps (simple-field-details (t2/select-one Field :id field-id-2))))))))))
 
