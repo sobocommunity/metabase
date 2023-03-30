@@ -140,7 +140,7 @@ function getUnfoldJsonContent() {
   return cy
     .findByText("Unfold JSON")
     .closest("section")
-    .find("[data-testid='select-button-content']")
+    .findByTestId("select-button-content");
 }
 
 describe("Unfold JSON", () => {
@@ -157,24 +157,24 @@ describe("Unfold JSON", () => {
     );
     // Go to field settings
     cy.visit(`/admin/datamodel/database/${WRITABLE_DB_ID}`);
-    cy.contains("Many Data Types").click();
+    cy.findByText(/Many Data Types/i).click();
 
     // Check json is unfolded initially
-    cy.contains("json.a").should("be.visible");
-    cy.get("[data-testid='column-json'] [aria-label='gear icon']").click();
+    cy.findByText(/json.a/i).should("be.visible");
+    cy.findByTestId("column-json").within(() => { cy.icon("gear").click(); });
     
-    getUnfoldJsonContent().contains("Yes").click();
+    getUnfoldJsonContent().findByText(/Yes/i).click();
     popover().within(() => {
-      cy.findByText("No").click();
+      cy.findByText(/No/i).click();
     });
 
     // Check setting has persisted
     cy.reload();
-    getUnfoldJsonContent().contains("No");
+    getUnfoldJsonContent().findByText(/No/i);
 
     // Check json field is not unfolded
     cy.visit(`/admin/datamodel/database/${WRITABLE_DB_ID}`);
-    cy.contains("Many Data Types").click();
-    cy.contains("json.a").should("not.exist");
+    cy.findByText(/Many Data Types/i).click();
+    cy.findByText(/json.a/i).should("not.exist");
   });
 });
