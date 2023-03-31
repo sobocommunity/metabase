@@ -1,6 +1,6 @@
 (ns metabase.shared.util.namespaces-test
   (:require
-   [clojure.test :refer [deftest is testing are]]
+   [clojure.test :refer [deftest is testing]]
    [metabase.shared.formatting.date :as shared.formatting.date]
    [metabase.shared.util.namespaces :as shared.ns]))
 
