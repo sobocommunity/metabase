@@ -55,7 +55,8 @@
    (select-keys
     pulse
     [:id :name :created_at :updated_at :creator_id :collection_id :collection_position :entity_id :archived
-     :skip_if_empty :dashboard_id :parameters])
+
+     :skip_if_empty :disable_links :dashboard_id :parameters])
    {:creator  (user-details (db/select-one 'User :id (:creator_id pulse)))
     :cards    (map pulse-card-details (:cards pulse))
     :channels (map pulse-channel-details (:channels pulse))}))
@@ -161,6 +162,7 @@
    :collection_position nil
    :created_at          true
    :skip_if_empty       false
+   :disable_links       false
    :updated_at          true
    :archived            false
    :dashboard_id        nil
